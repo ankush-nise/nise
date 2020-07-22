@@ -1,0 +1,11 @@
+{
+  "params":
+  {
+    "local_server": "True",
+    "local_uri": "mysql://root:@localhost/niselive",
+    "product_uri": "mysql://root:@localhost/niselive",
+    "upload_folder": "./static/uploads",
+    "admin_username": "nise-admin",
+      "admin-password": "nisepass@2020"
+  }
+}

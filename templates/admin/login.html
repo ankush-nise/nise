@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="">
+<title>Renewable Energy Investment Promotion and Facilitation Board</title>
+
+<!-- Bootstrap 4.0-->
+<link rel="stylesheet" href="{{ url_for('static',filename='admin/css/bootstrap.css') }}">
+
+<!-- Bootstrap extend-->
+<link rel="stylesheet" href="{{ url_for('static',filename='admin/css/bootstrap-extend.css') }}">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="{{ url_for('static',filename='admin/css/master_style.css') }}">
+
+<!-- Crypto_Admin skins -->
+<link rel="stylesheet" href="{{ url_for('static',filename='admin/css/_all-skins.css') }}">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo"> <a href="javascript:;"><b>LOGIN</b> </a> </div>
+  <!-- /.login-logo -->
+  <?php actionStatus();actionJQstatus();?>
+  <div class="login-box-body">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="content-header" style="background-color:none; padding:0px !important">
+            {% for category, message in messages %}
+              <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                 {{message}}
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+            {% endfor%}
+            </div>
+        {% endif %}
+     {% endwith %}
+    <form action="{{ url_for('admin_login') }}" method="post" class="form-element" onSubmit="return AdminLogin()">
+      <div class="form-group has-feedback">
+        {{ form.username(class_="form-control", placeholder="Enter username") }}
+        <span class="ion ion-email form-control-feedback"></span>
+        <i id="validate-username" class="text-danger"></i>
+      </div>
+      <div class="form-group has-feedback">
+        {{ form.userpass(class_="form-control", placeholder="Enter password") }}
+        <span class="ion ion-locked form-control-feedback"></span>
+        <i id="validate-userpass" class="text-danger"></i>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" name="captcha" id="captcha" class="form-control" placeholder="Enter Image Code" autocomplete="off" value="" />
+      </div>
+      <div class="form-group has-feedback">
+        {{ captcha() }}
+        <small><a href="{{ url_for('admin_login') }}">Refresh Captcha</a></small>
+      </div>
+      <div class="row">
+
+        <div class="col-6"> </div>
+        <div class="col-12 text-center">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          {{form.submit(class_="btn btn-success", value="Login")}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
+
+<script>
+    	var URL_ROOT = '<?php echo URL_ROOT ?>';
+    </script>
+<!-- jQuery 3 -->
+<script src="{{ url_for('static',filename='admin/js/jquery.min.js') }}"></script>
+
+<!-- popper -->
+<script src="{{ url_for('static',filename='admin/js/popper.min.js') }}"></script>
+
+<!-- Bootstrap 4.0-->
+<script src="{{ url_for('static',filename='admin/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/js/custom.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/js/jquery.sha256.js') }}"></script>
+</body>
+</html>

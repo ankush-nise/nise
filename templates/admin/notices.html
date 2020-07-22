@@ -1,0 +1,76 @@
+
+{% extends "admin/layout.html" %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> Current Notice <small>Control panel</small> </h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Admin/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item active">Current Notice</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+       <div class="col-lg-12 col-12 ">
+        <div class="container box">
+            <div class="box-header with-border bg-warning" style="padding: 0.25rem 1.25rem;">
+                <h3 class="box-title">All Notice</h3>
+                <a href="{{ url_for('add_notices') }}" class="btn btn-success pull-right">Add New</a>
+            </div><br>
+            <table class="table table-bordered" id="example">
+                <thead>
+                    <tr>
+                        <th width="6%">Sl.No</th>
+                        <th width="35%">Title</th>
+                        <th>Notice To</th>
+                        <th>Notice Type<br><small>(For Staff)</small></th>
+                        <th>File</th>
+                        <th width="10%">Published Date</th>
+                        <th width="8%">Is Tender?</th>
+                        <th width="6%">Status</th>
+
+                        <th width="10%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for notice in notices  %}
+                    <tr>
+                        <td>{{loop.index}}</td>
+                        <td>{{notice.title_en}}<br>{{notice.title_hi}}</td>
+                        <td>{{notice.noticeFor}}</td>
+                        <td>{{notice.notice_type}}</td>
+                        <td>
+                            {% if notice.attachment !=''  %}
+                            <a href="{{ url_for('static',filename='uploads/'+notice.attachment) }}" target="_blank">View</a>
+                            {% else %}
+                            NA
+                            {% endif %}
+                        </td>
+                        <td>{{notice.post_date}}</td>
+                        <td><span class="label label-{{ notice.tender_class }}">{{notice.isTender}}</span></td>
+                        <td><span class="label label-{{ notice.status_class }}">{{notice.post_status}}</span></td>
+
+                        <td><a href="{{ url_for('notice', notice_id=notice.ID) }}" class="label label-primary">Edit</a>
+                            <a href="{{ url_for('delete_notice', notice_id=notice.ID) }}"  onclick="if(confirm('Are you sure to delete?')){return true;	}" class="label label-danger">Delete</a> </td>
+                    </tr>
+                   {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+      </div>
+      </div>
+    </section>
+
+    <!-- /.content -->
+
+
+
+ {% endblock %}

@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="assets/img/favicon.ico">
+
+    <title>NISE :: Administrator</title>
+
+	<!-- Bootstrap 4.0-->
+	<link rel="stylesheet" href="{{ url_for('static',filename='admin/css/bootstrap.css') }}">
+
+	<!--amcharts -->
+	<link href="{{ url_for('static',filename='admin/js/export.css') }}" rel="stylesheet" type="text/css" />
+
+	<!-- Bootstrap-extend -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/bootstrap-extend.css') }}">
+
+	<!-- theme style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/select2.min.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/master_style.css') }}">
+
+	<!-- Crypto_Admin skins -->
+	<link rel="stylesheet" href="{{ url_for('static', filename='admin/css/_all-skins.css') }}">
+
+<style>
+[type=radio]:checked, [type=radio]:not(:checked) {
+    position: initial !important;
+    left: auto;
+    opacity: 1 !important;
+    margin-right: 5px;
+}
+</style>
+
+</head>
+
+<body class="hold-transition skin-yellow sidebar-mini">
+<div class="wrapper">
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels
+	  <b class="logo-mini">
+		  <span class="light-logo"><img src="images/logo-light.png" alt="logo"></span>
+		  <span class="dark-logo"><img src="images/logo-dark.png" alt="logo"></span>
+	  </b>-->
+      <!-- logo for regular state and mobile devices
+      <span class="logo-lg">
+		  <img src="images/logo-light-text.png" alt="logo" class="light-logo">
+	  	  <img src="images/logo-dark-text.png" alt="logo" class="dark-logo">
+	  </span>-->
+    </a>
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+
+
+		  <!-- User Account -->
+          <li class="dropdown user user-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="{{ url_for('static',filename='images/user5-128x128.jpg') }}" class="user-image rounded-circle" alt="User Image">
+            </a>
+
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+		 <div class="ulogo">
+			 <a href="index.html">
+			  <!-- logo for regular state and mobile devices -->
+			  <span><b>Username</b></span>
+			</a>
+		</div>
+        <div class="image">
+          <img src="{{ url_for('static',filename='images/user2-160x160.jpg') }}" class="rounded-circle" alt="User Image">
+        </div>
+        <div class="info">
+          <p>NISE Admin</p>
+        </div>
+      </div>
+      <!-- sidebar menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+      	<li class="active">
+          <a href="/Admin/Dashboard">
+            <i class="icon-home"></i> <span>Dashboard</span>
+
+          </a>
+        </li>
+        <li>
+          <a href="/Admin/notices">
+            <i class="fa fa-files-o"></i> <span>Current Notice</span>
+
+          </a>
+        </li>
+        <li>
+          <a href="/Admin/pages">
+            <i class="fa fa-files-o"></i> <span>Pages</span>
+
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_logout') }}">
+            <i class="ion ion-locked"></i> <span>Logout</span>
+
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+  </aside>
+  <div class="content-wrapper">
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="content-header" style="background-color:none; padding:0px !important">
+        {% for category, message in messages %}
+          <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+             {{message}}
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+        {% endfor%}
+        </div>
+    {% endif %}
+ {% endwith %}
+{% block body %}{% endblock %}
+   <!-- /.content-wrapper -->
+  </div>
+
+<div class="control-sidebar-bg"></div>
+</div>
+ <footer class="main-footer">
+    <div class="pull-right d-none d-sm-inline-block">
+
+    </div>
+    &copy; 2020 <a href="">NISE</a>. All Rights Reserved. </footer>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+	<script src="{{ url_for('static', filename='admin/js/jquery.js') }}"></script>
+
+	<!-- popper -->
+	<script src="{{ url_for('static', filename='admin/js/popper.min.js') }}"></script>
+
+	<!-- Bootstrap 4.0-->
+	<script src="{{ url_for('static', filename='admin/js/bootstrap.js') }}"></script>
+
+	<!-- Slimscroll -->
+	<script src="{{ url_for('static', filename='admin/js/jquery.slimscroll.js') }}"></script>
+
+	<!-- FastClick -->
+	<script src="{{ url_for('static', filename='admin/js/fastclick.js') }}"></script>
+
+    <!--amcharts charts -->
+
+
+	<!-- webticker -->
+	<script src="{{ url_for('static', filename='admin/js/jquery.webticker.min.js') }}"></script>
+
+
+	<!-- This is data table -->
+    <script src="{{ url_for('static', filename='admin/js/jquery.dataTables.min.js') }}"></script>
+    <!-- Chart -->	<script src="{{ url_for('static', filename='admin/js/Chart.min.js') }}"></script>
+    </script>
+
+
+	<script src="{{ url_for('static', filename='admin/js/template.js') }}"></script>
+
+	<!-- Crypto_Admin dashboard demo (This is only for demo purposes) -->
+	<script src="{{ url_for('static', filename='admin/js/dashboard.js') }}"></script>
+	<!--<script src="js/pages/dashboard-chart.js"></script>-->
+
+	<!-- Crypto_Admin for demo purposes -->
+	<script src="{{ url_for('static', filename='admin/js/demo.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/jquery.growl.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/custom.js') }}"></script>
+
+
+
+    <script src="{{ url_for('static', filename='admin/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/jszip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/pdfmake.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/vfs_fonts.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='admin/js/buttons.print.min.js') }}"></script>
+
+
+	<script type="text/javascript" src="{{ url_for('static', filename='admin/js/data-table.js') }}"></script>
+
+    <!-- Bootstrap 4.0-->
+
+    <!-- Select2 -->
+    <script src="{{ url_for('static', filename='admin/js/select2.full.js') }}"></script>
+    <!--<script src="js/pages/advanced-form-element.js"></script>-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/jquery-ui.css') }}">
+    <script src="{{ url_for('static', filename='admin/js/jquery-ui.js') }}"></script>
+ </body>
+ </html>

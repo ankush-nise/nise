@@ -1,0 +1,173 @@
+
+{% extends "admin/layout.html" %}
+{% block body %}
+
+  <!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1> Current Notice <small>Control panel</small> </h1>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/Admin/Dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="breadcrumb-item active">Current Notice</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+       <div class="col-lg-12 col-12 ">
+        <div class="container box">
+          <div class="box-header with-border bg-warning">
+            <h3 class="box-title">{{ action }} Notice </h3>
+          </div>
+          <form action="{% if action == 'Add' %}{{ url_for('add_notices')}}{% else: %}{{ url_for('update_notice', notice_id=notice_id )}}{% endif %}" method="post" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="col-md-12">
+              	<div class="col-md-6">
+                  <div class="form-group">
+                    <label>Notice title/Description(English) : <span class="text-danger">*</span></label>
+                    <div class="controls">
+                      {{form.post_title_en(class_="form-control", placeholder="Enter Title in English")}}
+                      {% if form.post_title_en.errors %}
+                        {% for error in form.post_title_en.errors %}
+                          <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>सूचना शीर्षक / विवरण(Hindi) : <span class="text-danger">*</span></label>
+                    <div class="controls">
+                      {{form.post_title_hi(class_="form-control")}}
+                      <span class="validate" id="validate-post_title_hi"></span> </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Details of the notice(English) : </label>
+                    <div class="controls">
+                      {{form.post_content_en(class_="form-control")}}
+                      <span class="validate" id="validate-post_content_en"></span>
+                      <span class="text-danger" id="word_left"></span>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>नोटिस का विवरण(Hindi) : </label>
+                    <div class="controls">
+                      {{form.post_content_hi(class_="form-control")}}
+                      <span class="validate" id="validate-post_content_hi"></span>
+                      <span class="text-danger" id="word_left"></span>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Current Notice : </label>
+                    <div class="controls">
+                      {{form.noticeFor}}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Notices Status: </label>
+                    <div class="controls">
+                      {{form.post_status}}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tender: </label>
+                    <div class="controls">
+                      {{form.isTender}}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Notice Type(For Staff): </label>
+                    <div class="controls">
+                      {{form.notice_type}}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Is Important?: </label>
+                    <div class="controls">
+                      {{ form.is_important(class_="form-control") }}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Attach Document <small class="text-danger"><em>Max. 1 MB & pdf file can be upload </em></small>: </label>
+                    <div class="controls">
+                      {{ form.attachment(class_="form-control") }}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Publish Date : </label>
+                    <div class="controls">
+                      {{form.post_date(class_="form-control")}}
+                      <span class="text-danger" id="valid-document"></span>
+                       </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-12">
+                  <div class="form-group">
+                   {{form.submit(class_="btn btn-success")}}
+                    <input type="button" class="btn btn-danger" value="Cancel" onclick="window.location='{{ url_for('get_notices') }}'" />
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    {% if action == 'Edit': %}
+                    <input type="hidden" name="notice_id" value="{{ notice_id }}" />
+                    {% endif %}
+                    <!-- /.input group -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+            </div>
+          </form>
+
+
+        </div>
+
+      </div>
+      </div>
+    </section>
+
+    <!-- /.content -->
+
+
+
+ {% endblock %}
